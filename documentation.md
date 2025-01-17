@@ -17,12 +17,14 @@ The project will involve evaluating the effectiveness of RM3 query rewriting (ou
 
 ### Hypothesis
 **H1**
+
 The T5 query rewriter model (using [prhegde/t5-query-reformulation-RL](https://huggingface.co/prhegde/t5-query-reformulation-RL) will improve retrieval performance compared to both BM25 and BM25+RM3 baselines in terms of 
 - mean average precision (MAP),
 - normalized discounted cumulative gain (NDCG@10),
 - and precision at various ranks (P@1, P@5, P@10).
 
 **H2**
+
 The semantic search approach (using [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) will show significant improvements over the baseline BM25 and BM25+RM3 in terms of 
 - mean average precision (MAP),
 - normalized discounted cumulative gain (NDCG@10),
@@ -31,6 +33,7 @@ The semantic search approach (using [sentence-transformers/all-MiniLM-L6-v2](htt
 For both hypothesis the observed improvements will be statistically significant at a confidence level of 20%.
 
 **H3**
+
 Among all approaches, we expect the following performance ranking (from best to worst):
 1. BM25 + T5
 2. BM25 + Semantic Search
@@ -38,16 +41,20 @@ Among all approaches, we expect the following performance ranking (from best to 
 4. BM25 (baseline)
 
 **Why?**
+
 **H1**
+
 RM3 primarily relies on term frequencies and document similarities. As it primarily focuses on adding or removing terms from the original query. 
 It may struggle to capture nuanced semantic relationships between words and concepts, leading to less effective query expansions.
 Unlike rule-based methods like RM3, T5 should adapt to different query styles and domains. 
 T5 can generate entirely new queries, explore different phrasings, and capture synonyms and related concepts.
 
 **H2**
+
 Dense vector representations should capture semantic relationships that term-based approaches miss, while being more robust to vocabulary mismatch issues. It processes entire queries and documents holistically and maintains relationships between terms rather than treating them independently. Therefore it will be better at handling abstract concepts and thematic similarities.
 
 **H3**
+
 The T5 model we are using is specifically trained on query reformulation using MS MARCO data, which matches our task domain.
 Semantic search helps identify conceptually similar documents. However, converting everything to dense vectors can sometimes lose fine-grained term importance. We assume that computing similarities in vector space is less interpretable than T5's explicit query reformulations
 RM3 is a Proven technique that reliably provides incremental improvements but as it only uses term statistics from the collection itself
