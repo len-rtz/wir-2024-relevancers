@@ -5,7 +5,7 @@
     "colab": {
       "provenance": [],
       "gpuType": "T4",
-      "authorship_tag": "ABX9TyNmb+Jvm2hwHQJHnbvJwEK4",
+      "authorship_tag": "ABX9TyM/H4yerqkh0zzTfDKRvU19",
       "include_colab_link": true
     },
     "kernelspec": {
@@ -371,7 +371,7 @@
         "colab_type": "text"
       },
       "source": [
-        "<a href=\"https://colab.research.google.com/github/len-rtz/wir-2024-relevancers/blob/main/relevancers_test_system.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+        "<a href=\"https://colab.research.google.com/github/len-rtz/wir-2024-relevancers/blob/main/relevancers_test_system_rewr_T5.ipbynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
       ]
     },
     {
@@ -387,7 +387,7 @@
     },
     {
       "cell_type": "code",
-      "execution_count": 4,
+      "execution_count": null,
       "metadata": {
         "colab": {
           "base_uri": "https://localhost:8080/"
@@ -500,7 +500,7 @@
       "metadata": {
         "id": "bV_rITFTS2z0"
       },
-      "execution_count": 5,
+      "execution_count": null,
       "outputs": []
     },
     {
@@ -514,7 +514,7 @@
       "metadata": {
         "id": "xrp7UYefTEi_"
       },
-      "execution_count": 6,
+      "execution_count": null,
       "outputs": []
     },
     {
@@ -547,7 +547,7 @@
         "id": "lC9Gg5MGWE1l",
         "outputId": "2482f23b-3d0c-44ee-8303-b62e7cea668d"
       },
-      "execution_count": 7,
+      "execution_count": null,
       "outputs": [
         {
           "output_type": "stream",
@@ -607,7 +607,7 @@
         "id": "lV3aHZlrXLnm",
         "outputId": "0ba7716c-479b-4d4c-b14a-3dee04439985"
       },
-      "execution_count": 8,
+      "execution_count": null,
       "outputs": [
         {
           "output_type": "stream",
@@ -794,7 +794,7 @@
       "metadata": {
         "id": "HLWZCaLrzykY"
       },
-      "execution_count": 15,
+      "execution_count": null,
       "outputs": []
     },
     {
@@ -820,7 +820,7 @@
       "metadata": {
         "id": "Row1pu5B7OPl"
       },
-      "execution_count": 16,
+      "execution_count": null,
       "outputs": []
     },
     {
@@ -851,7 +851,7 @@
           "base_uri": "https://localhost:8080/"
         }
       },
-      "execution_count": 17,
+      "execution_count": null,
       "outputs": [
         {
           "output_type": "stream",
@@ -885,7 +885,7 @@
       "metadata": {
         "id": "pVamrs_iL89g"
       },
-      "execution_count": 18,
+      "execution_count": null,
       "outputs": []
     },
     {
@@ -932,7 +932,7 @@
         "id": "x3mrfNf6XMhR",
         "outputId": "379a826b-35c1-4ea7-bc01-9a23667ae05a"
       },
-      "execution_count": 19,
+      "execution_count": null,
       "outputs": [
         {
           "output_type": "stream",
@@ -997,27 +997,18 @@
         "os.makedirs(run_dir, exist_ok=True)\n",
         "\n",
         "# Assign the results to the 'run' variable\n",
-        "run = bm25_rm3(pt_dataset.get_topics('text'))\n",
+        "run = bm25_reformulated(pt_dataset.get_topics('text'))\n",
         "\n",
         "# Persist and normalize the run\n",
         "persist_and_normalize_run(\n",
         "    run,\n",
-        "    system_name='bm25+rm3-relevancers',\n",
+        "    system_name='bm25+reform_t5-relevancers',\n",
         "    default_output=run_dir,\n",
         "    upload_to_tira=pt_dataset,\n",
         ")"
       ],
       "metadata": {
         "id": "DwE303l4QNAv"
-      },
-      "execution_count": null,
-      "outputs": []
-    },
-    {
-      "cell_type": "code",
-      "source": [],
-      "metadata": {
-        "id": "9QemTSetcHDS"
       },
       "execution_count": null,
       "outputs": []
