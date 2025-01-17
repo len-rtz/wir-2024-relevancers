@@ -30,8 +30,6 @@ The semantic search approach (using [sentence-transformers/all-MiniLM-L6-v2](htt
 - normalized discounted cumulative gain (NDCG@10),
 - and precision at various ranks (P@1, P@5, P@10).
 
-For both hypothesis the observed improvements will be statistically significant at a confidence level of 20%.
-
 **H3**
 
 Among all approaches, we expect the following performance ranking (from best to worst):
