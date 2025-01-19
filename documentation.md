@@ -154,5 +154,24 @@ The following table summarizes the performance of the different retrieval system
 - **BM25 + Reform (T5)** showed **worse performance** than BM25 + RM3, which could be due to **ineffective fine-tuning** or **misalignment** in reformulating queries for the retrieval task.
 
 ### Limitations & Discussion
+1. **Model Overfitting:**  
+   Some advanced models like T5 may overfit the specific training data such as MS MARCO, leading to performance gains that might not generalize well to other datasets or domains.
+   
+2. **Query Ambiguity:**  
+   While **T5** and **Semantic Search** handle **semantic ambiguity** well, they still struggle in highly **ambiguous queries** that lack clear intent. For example, queries like “apple” (fruit vs. technology) might be challenging for the model to disambiguate without additional context.
+   
+3. **Computational Costs:**  
+   Models like **T5** and **Sentence-BERT** are **computationally expensive**, requiring more resources compared to traditional models like BM25. This can become a bottleneck in real-time search applications.
+   
+4. **Model Interpretability:**  
+   While T5 and other transformer-based models are effective, they are often seen as **"black boxes"**. This lack of interpretability can be an issue in understanding how certain queries were rewritten and why specific documents were retrieved.
+
+#### Discussion:
+- **T5** clearly outperforms **BM25** and **BM25 + RM3** in terms of **semantic quality**. The ability of T5 to generate diverse, context-aware rewrites gives it a significant advantage in improving retrieval relevance.
+  
+- **Semantic Search** also showed strong results, especially in handling complex queries. However, **Dense Vector Representations** can sometimes lose the **granularity** of term-specific importance, which can be a limitation in some cases.
+  
+- **BM25 + RM3** still holds value for **simple queries** or cases where **query expansion** through term frequency is sufficient. However, it lacks the ability to understand **nuances in meaning** that T5 and Sentence-BERT can capture.
+
 ### Conclusion
 
