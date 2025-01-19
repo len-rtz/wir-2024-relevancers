@@ -182,7 +182,7 @@ The following table summarizes the performance of the different retrieval system
 4. **Model Interpretability:**  
    While T5 and other transformer-based models are effective, they are often seen as **"black boxes"**. This lack of interpretability can be an issue in understanding how certain queries were rewritten and why specific documents were retrieved.
 
-#### Discussion:
+### Discussion:
 
 #### H1: T5 Query Rewriting vs. BM25 and BM25+RM3
 
@@ -202,7 +202,6 @@ The **T5 query rewriter model** (using [prhegde/t5-query-reformulation-RL](https
 
 - While **T5** offers promising **semantic understanding**, it needs to be further **fine-tuned** or combined with other systems to yield better results for query reformulation tasks.
 
----
 
 #### H2: Semantic Search vs. BM25 and BM25+RM3
 
