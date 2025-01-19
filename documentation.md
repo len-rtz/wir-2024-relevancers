@@ -137,6 +137,22 @@ The semantic search system consists of two main components:
   - Returns results in standard PyTerrier format
 
 ### Evaluation
+#### **Evaluation Metrics**
+1. **Mean Average Precision (MAP):**  
+   MAP measures how well the ranked documents correspond to the relevance of the query across multiple queries. This metric gives an overall measure of retrieval effectiveness.
+   
+2. **Reciprocal Rank (RecipRank):**  
+   **Reciprocal Rank** measures the rank of the **first relevant document** retrieved. If the first relevant document is at rank 1, the reciprocal rank is 1; if it is at rank 2, the reciprocal rank is 0.5, and so on.  
+   - **Higher Reciprocal Rank is better.**  
+   - **Why it matters:** A higher reciprocal rank means that the **first relevant document** is ranked higher, showing the ability of the system to return relevant results quickly.
+
+3. **Normalized Discounted Cumulative Gain (NDCG@10):**  
+   Measures ranking quality, placing more weight on the **top-ranked documents** (the first 10 results).
+   
+4. **Precision at k (P@k):**  
+   Measures the proportion of **relevant documents** in the top k retrieved results, focusing on precision at different cutoffs (e.g., P@1, P@5, P@10).
+
+
 ### Results 
 The following table summarizes the performance of the different retrieval systems across the evaluation metrics:
 
@@ -148,10 +164,10 @@ The following table summarizes the performance of the different retrieval system
 | **Semantic Search**      | 0.531523  | -                   | 0.652962    | 0.876289  | 0.793814  | 0.737113  |
 
 #### Key Findings:
-- **Semantic Search (Sentence-BERT)** achieved the **best performance** across all metrics, particularly excelling in **NDCG@10**, **P@1**, and **P@10**, showing its ability to handle **semantically rich** queries.
-- **BM25 + T5** performed **better than BM25 + RM3** and **BM25 + Reform + RM3**, with a **significant improvement** in **MAP** and **P@1**. The T5-based query rewriting model demonstrates its ability to **generate diverse and context-aware rewrites**, leading to **better retrieval quality**.
-- **BM25 + RM3** performed **well** in terms of **traditional metrics** like **precision**, but **lacked** the **semantic depth** of the other models, especially when dealing with more complex queries.
-- **BM25 + Reform (T5)** showed **worse performance** than BM25 + RM3, which could be due to **ineffective fine-tuning** or **misalignment** in reformulating queries for the retrieval task.
+- **Semantic Search (Sentence-BERT)** achieved the **best performance** across all metrics, particularly excelling in **NDCG@10**, **P@1**, and **P@10**, showing its ability to handle **semantically rich** queries effectively.
+- **BM25 + Reform (T5)** had the **lowest performance** across all metrics, with particularly low **MAP** and **P@1** scores, indicating that **T5-based query reformulation** did not improve retrieval performance as expected. The **ineffective fine-tuning** of **T5 for Reform** likely led to poor query reformulation and resulted in suboptimal retrieval quality.
+- **BM25 + RM3** performed **well** in terms of **traditional metrics** like **precision**, but it **lacked the semantic depth** that **T5 for Reform** and **Semantic Search** offer, especially when handling **complex queries**.
+- **BM25 + Reform + RM3** showed **better performance** than **BM25 + Reform (T5)**, showing that adding **RM3 expansion** to BM25 and **T5 rewriting** helped to improve the results slightly, although it still couldn't match the performance of **BM25 + RM3** or **Semantic Search**.
 
 ### Limitations & Discussion
 1. **Model Overfitting:**  
@@ -161,17 +177,11 @@ The following table summarizes the performance of the different retrieval system
    While **T5** and **Semantic Search** handle **semantic ambiguity** well, they still struggle in highly **ambiguous queries** that lack clear intent. For example, queries like “apple” (fruit vs. technology) might be challenging for the model to disambiguate without additional context.
    
 3. **Computational Costs:**  
-   Models like **T5** and **Sentence-BERT** are **computationally expensive**, requiring more resources compared to traditional models like BM25. This can become a bottleneck in real-time search applications.
+   Models like **T5** and **Sentence-BERT** are **computationally expensive**, requiring more resources than traditional models like BM25. This can become a bottleneck in real-time search applications.
    
 4. **Model Interpretability:**  
    While T5 and other transformer-based models are effective, they are often seen as **"black boxes"**. This lack of interpretability can be an issue in understanding how certain queries were rewritten and why specific documents were retrieved.
 
 #### Discussion:
-- **T5** clearly outperforms **BM25** and **BM25 + RM3** in terms of **semantic quality**. The ability of T5 to generate diverse, context-aware rewrites gives it a significant advantage in improving retrieval relevance.
-  
-- **Semantic Search** also showed strong results, especially in handling complex queries. However, **Dense Vector Representations** can sometimes lose the **granularity** of term-specific importance, which can be a limitation in some cases.
-  
-- **BM25 + RM3** still holds value for **simple queries** or cases where **query expansion** through term frequency is sufficient. However, it lacks the ability to understand **nuances in meaning** that T5 and Sentence-BERT can capture.
-
 ### Conclusion
 
