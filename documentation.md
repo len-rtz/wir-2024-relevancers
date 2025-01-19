@@ -183,5 +183,62 @@ The following table summarizes the performance of the different retrieval system
    While T5 and other transformer-based models are effective, they are often seen as **"black boxes"**. This lack of interpretability can be an issue in understanding how certain queries were rewritten and why specific documents were retrieved.
 
 #### Discussion:
+
+#### H1: T5 Query Rewriting vs. BM25 and BM25+RM3
+
+**Hypothesis:**  
+The **T5 query rewriter model** (using [prhegde/t5-query-reformulation-RL](https://huggingface.co/prhegde/t5-query-reformulation-RL)) will improve retrieval performance compared to both **BM25** and **BM25+RM3** baselines in terms of:
+- Mean average precision (MAP)
+- Normalized discounted cumulative gain (NDCG@10)
+- Precision at various ranks (P@1, P@5, P@10)
+
+**Discussion:**
+- The hypothesis predicted that **T5 for query rewriting** would outperform **BM25** and **BM25 + RM3** in **MAP**, **NDCG**, and **P@k** metrics.  
+- However, the results showed that **BM25 + Reform (T5)** performed **worse** than **BM25 + RM3** and **BM25** in terms of **MAP** and **P@1**, suggesting that the **T5 model** was not effectively improving retrieval performance in this case.
+  
+  - **Possible Reasons for the Discrepancy:**
+    - **Fine-Tuning Issues:** The **T5 model** might not have been **fine-tuned** adequately for the specific nature of queries in this task, leading to **poor query reformulation**. Fine-tuning on a broader or more **domain-specific** dataset could help the model align better with query types.
+    - **Model Complexity:** Query rewriting with **T5** introduces diversity in the reformulations, which can sometimes **dilute relevance**, especially if the model generates reformulations that are too far from the original intent.
+
+- While **T5** offers promising **semantic understanding**, it needs to be further **fine-tuned** or combined with other systems to yield better results for query reformulation tasks.
+
+---
+
+#### H2: Semantic Search vs. BM25 and BM25+RM3
+
+**Hypothesis:**  
+The **semantic search approach** (using [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)) will show significant improvements over the baseline **BM25** and **BM25+RM3** in terms of:
+- Mean average precision (MAP)
+- Normalized discounted cumulative gain (NDCG@10)
+- Precision at various ranks (P@1, P@5, P@10)
+
+**Discussion:**
+- **Semantic Search (Sentence-BERT)** validated the hypothesis by **outperforming** both **BM25** and **BM25 + RM3** across **MAP**, **NDCG@10**, and **P@k** metrics.
+  - **Why did Semantic Search perform best?**
+    - **Contextual Understanding:** **Sentence-BERT** utilizes **dense vector embeddings** to capture the **meaning** of both queries and documents, allowing the system to match queries and documents based on **semantic similarity**, not just exact term matches.
+    - **Handling Ambiguity:** **Semantic Search** effectively handles **query ambiguity** (e.g., "apple" as a fruit vs. tech company), whereas BM25 struggles with such nuances.
+    - **Improved Document Ranking:** **Semantic Search** ensures that relevant documents are ranked higher in the results, particularly for **complex queries**.
+
+- **Conclusion for H2:**  
+  The **semantic approach** (Sentence-BERT) outperformed traditional methods like **BM25** and **BM25 + RM3**, proving that **semantic search models** provide a more **contextually rich and accurate** retrieval system for modern queries.
+
+---
+
+#### H3: Performance Ranking
+
+**Hypothesis:**  
+Among all approaches, we expect the following performance ranking (from best to worst):
+1. BM25 + T5  
+2. BM25 + Semantic Search  
+3. BM25 + RM3  
+4. BM25 (baseline)
+
+**Discussion:**
+- **Expected Ranking vs. Actual Results:**
+  - The actual results contradicted the initial hypothesis. While **BM25 + T5** was expected to perform the best, it was actually **outperformed** by **BM25 + Semantic Search**.
+  - **Semantic Search (Sentence-BERT)** performed the best across all metrics, highlighting the superiority of **dense vector embeddings** over traditional **term-based models**.
+  - **BM25 + T5** was expected to provide improvements in **query rewriting**, but it **underperformed**, likely due to **insufficient fine-tuning** and its focus on **generating diverse queries** without sufficient alignment with the retrieval task.
+  - **BM25 + RM3** performed well, as expected, showing the advantage of **query expansion** via term frequency, but still lagged behind the **semantic models**.
+
 ### Conclusion
 
