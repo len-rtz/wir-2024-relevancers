@@ -170,19 +170,7 @@ The following table summarizes the performance of the different retrieval system
 - **BM25 + Reform + RM3** showed **better performance** than **BM25 + Reform (T5)**, showing that adding **RM3 expansion** to BM25 and **T5 rewriting** helped to improve the results slightly, although it still couldn't match the performance of **BM25 + RM3** or **Semantic Search**.
 
 ### Limitations & Discussion
-1. **Model Overfitting:**  
-   Some advanced models like T5 may overfit the specific training data such as MS MARCO, leading to performance gains that might not generalize well to other datasets or domains.
-   
-2. **Query Ambiguity:**  
-   While **T5** and **Semantic Search** handle **semantic ambiguity** well, they still struggle in highly **ambiguous queries** that lack clear intent. For example, queries like “apple” (fruit vs. technology) might be challenging for the model to disambiguate without additional context.
-   
-3. **Computational Costs:**  
-   Models like **T5** and **Sentence-BERT** are **computationally expensive**, requiring more resources than traditional models like BM25. This can become a bottleneck in real-time search applications.
-   
-4. **Model Interpretability:**  
-   While T5 and other transformer-based models are effective, they are often seen as **"black boxes"**. This lack of interpretability can be an issue in understanding how certain queries were rewritten and why specific documents were retrieved.
-
-### Discussion:
+#### Discussion:
 
 #### H1: T5 Query Rewriting vs. BM25 and BM25+RM3
 
@@ -238,6 +226,19 @@ Among all approaches, we expect the following performance ranking (from best to 
   - **Semantic Search (Sentence-BERT)** performed the best across all metrics, highlighting the superiority of **dense vector embeddings** over traditional **term-based models**.
   - **BM25 + T5** was expected to provide improvements in **query rewriting**, but it **underperformed**, likely due to **insufficient fine-tuning** and its focus on **generating diverse queries** without sufficient alignment with the retrieval task.
   - **BM25 + RM3** performed well, as expected, showing the advantage of **query expansion** via term frequency, but still lagged behind the **semantic models**.
+
+#### Limitations:
+1. **Model Overfitting:**  
+   Some advanced models like T5 may overfit the specific training data such as MS MARCO, leading to performance gains that might not generalize well to other datasets or domains.
+   
+2. **Query Ambiguity:**  
+   While **T5** and **Semantic Search** handle **semantic ambiguity** well, they still struggle in highly **ambiguous queries** that lack clear intent. For example, queries like “apple” (fruit vs. technology) might be challenging for the model to disambiguate without additional context.
+   
+3. **Computational Costs:**  
+   Models like **T5** and **Sentence-BERT** are **computationally expensive**, requiring more resources than traditional models like BM25. This can become a bottleneck in real-time search applications.
+   
+4. **Model Interpretability:**  
+   While T5 and other transformer-based models are effective, they are often seen as **"black boxes"**. This lack of interpretability can be an issue in understanding how certain queries were rewritten and why specific documents were retrieved.
 
 ### Conclusion
 
