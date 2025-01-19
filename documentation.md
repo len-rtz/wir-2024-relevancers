@@ -241,3 +241,12 @@ Among all approaches, we expect the following performance ranking (from best to 
 
 ### Conclusion
 
+In this project, we explored the effectiveness of **semantic query rewriting** models (T5 and Sentence-BERT) compared to traditional retrieval methods like **BM25** and **BM25 + RM3**. The results confirmed that **semantic search** approaches outperformed the traditional models in all key evaluation metrics, including **MAP**, **NDCG@10**, and **P@k**. While **T5** showed potential for query reformulation, it underperformed in this setting, likely due to **insufficient fine-tuning** and challenges in generating high-quality rewrites that align well with retrieval tasks. On the other hand, **Semantic Search** using **Sentence-BERT** excelled, showcasing the power of **dense vector representations** to capture deeper **semantic relationships** and improve retrieval performance, particularly in handling complex queries. These findings underscore the importance of **semantic understanding** in modern search systems and highlight the potential of **hybrid approaches** that combine the strengths of both traditional and semantic models.
+
+#### Key Takeaways:
+- **Semantic Search (Sentence-BERT)** performed the best, demonstrating superior retrieval quality due to its ability to capture **semantic meaning** and **contextual relevance**.
+- **T5** showed promise but underperformed, possibly due to **insufficient fine-tuning** for query reformulation tasks.
+- **BM25 + RM3** remains effective for **precision-based retrieval** but struggles with **semantic understanding**.
+- Combining **BM25** with **T5** or **Semantic Search** could create a **hybrid system** that combines the strengths of **traditional models** and **semantic models**, leading to better performance.
+
+
