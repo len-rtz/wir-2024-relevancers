@@ -161,10 +161,10 @@ The following table summarizes the performance of the different retrieval system
 | **BM25 + RM3**           | 0.452199  | 0.768722            | 0.512417    | 0.680412  | 0.653608  | 0.612371  |
 | **BM25 + Reform (T5)**   | 0.382817  | 0.697691            | 0.426565    | 0.587629  | 0.534021  | 0.508247  |
 | **BM25 + Reform + RM3**  | 0.421044  | 0.696987            | 0.449395    | 0.608247  | 0.583505  | 0.545361  |
-| **Semantic Search**      | 0.531523  | -                   | 0.652962    | 0.876289  | 0.793814  | 0.737113  |
+| **BM25 + Semantic Search**      | 0.531523  | -                   | 0.652962    | 0.876289  | 0.793814  | 0.737113  |
 
 #### Key Findings:
-- **Semantic Search (Sentence-BERT)** achieved the **best performance** across all metrics, particularly excelling in **NDCG@10**, **P@1**, and **P@10**, showing its ability to handle **semantically rich** queries effectively.
+- **BM25 + Semantic Search (Sentence-BERT)** achieved the **best performance** across all metrics, particularly excelling in **NDCG@10**, **P@1**, and **P@10**, showing its ability to handle **semantically rich** queries effectively.
 - **BM25 + Reform (T5)** had the **lowest performance** across all metrics, with particularly low **MAP** and **P@1** scores, indicating that **T5-based query reformulation** did not improve retrieval performance as expected. The **ineffective fine-tuning** of **T5 for Reform** likely led to poor query reformulation and resulted in suboptimal retrieval quality.
 - **BM25 + RM3** performed **well** in terms of **traditional metrics** like **precision**, but it **lacked the semantic depth** that **T5 for Reform** and **Semantic Search** offer, especially when handling **complex queries**.
 - **BM25 + Reform + RM3** showed **better performance** than **BM25 + Reform (T5)**, showing that adding **RM3 expansion** to BM25 and **T5 rewriting** helped to improve the results slightly, although it still couldn't match the performance of **BM25 + RM3** or **Semantic Search**.
@@ -203,7 +203,7 @@ The **T5 query rewriter model** (using [prhegde/t5-query-reformulation-RL](https
 - While **T5** offers promising **semantic understanding**, it needs to be further **fine-tuned** or combined with other systems to yield better results for query reformulation tasks.
 
 
-#### H2: Semantic Search vs. BM25 and BM25+RM3
+#### H2: BM25 + Semantic Search vs. BM25 and BM25+RM3
 
 **Hypothesis:**  
 The **semantic search approach** (using [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)) will show significant improvements over the baseline **BM25** and **BM25+RM3** in terms of:
@@ -212,7 +212,7 @@ The **semantic search approach** (using [sentence-transformers/all-MiniLM-L6-v2]
 - Precision at various ranks (P@1, P@5, P@10)
 
 **Discussion:**
-- **Semantic Search (Sentence-BERT)** validated the hypothesis by **outperforming** both **BM25** and **BM25 + RM3** across **MAP**, **NDCG@10**, and **P@k** metrics.
+- **BM25 + Semantic Search (Sentence-BERT)** validated the hypothesis by **outperforming** both **BM25** and **BM25 + RM3** across **MAP**, **NDCG@10**, and **P@k** metrics.
   - **Why did Semantic Search perform best?**
     - **Contextual Understanding:** **Sentence-BERT** utilizes **dense vector embeddings** to capture the **meaning** of both queries and documents, allowing the system to match queries and documents based on **semantic similarity**, not just exact term matches.
     - **Handling Ambiguity:** **Semantic Search** effectively handles **query ambiguity** (e.g., "apple" as a fruit vs. tech company), whereas BM25 struggles with such nuances.
@@ -235,13 +235,13 @@ Among all approaches, we expect the following performance ranking (from best to 
 **Discussion:**
 - **Expected Ranking vs. Actual Results:**
   - The actual results contradicted the initial hypothesis. While **BM25 + T5** was expected to perform the best, it was actually **outperformed** by **BM25 + Semantic Search**.
-  - **Semantic Search (Sentence-BERT)** performed the best across all metrics, highlighting the superiority of **dense vector embeddings** over traditional **term-based models**.
+  - **BM25 + Semantic Search (Sentence-BERT)** performed the best across all metrics, highlighting the superiority of **dense vector embeddings** over traditional **term-based models**.
   - **BM25 + T5** was expected to provide improvements in **query rewriting**, but it **underperformed**, likely due to **insufficient fine-tuning** and its focus on **generating diverse queries** without sufficient alignment with the retrieval task.
   - **BM25 + RM3** performed well, as expected, showing the advantage of **query expansion** via term frequency, but still lagged behind the **semantic models**.
 
 ### Conclusion
 
-In this project, we explored the effectiveness of **semantic query rewriting** models (T5 and Sentence-BERT) compared to traditional retrieval methods like **BM25** and **BM25 + RM3**. The results confirmed that **semantic search** approaches outperformed the traditional models in all key evaluation metrics, including **MAP**, **NDCG@10**, and **P@k**. While **T5** showed potential for query reformulation, it underperformed in this setting, likely due to **insufficient fine-tuning** and challenges in generating high-quality rewrites that align well with retrieval tasks. On the other hand, **Semantic Search** using **Sentence-BERT** excelled, showcasing the power of **dense vector representations** to capture deeper **semantic relationships** and improve retrieval performance, particularly in handling complex queries. These findings underscore the importance of **semantic understanding** in modern search systems and highlight the potential of **hybrid approaches** that combine the strengths of both traditional and semantic models.
+In this project, we explored the effectiveness of **BM25 + semantic query rewriting** models (T5 and Sentence-BERT) compared to traditional retrieval methods like **BM25** and **BM25 + RM3**. The results confirmed that **semantic search** approaches outperformed the traditional models in all key evaluation metrics, including **MAP**, **NDCG@10**, and **P@k**. While **T5** showed potential for query reformulation, it underperformed in this setting, likely due to **insufficient fine-tuning** and challenges in generating high-quality rewrites that align well with retrieval tasks. On the other hand, **Semantic Search** using **Sentence-BERT** excelled, showcasing the power of **dense vector representations** to capture deeper **semantic relationships** and improve retrieval performance, particularly in handling complex queries. These findings underscore the importance of **semantic understanding** in modern search systems and highlight the potential of **hybrid approaches** that combine the strengths of both traditional and semantic models.
 
 #### Key Takeaways:
 - **Semantic Search (Sentence-BERT)** performed the best, demonstrating superior retrieval quality due to its ability to capture **semantic meaning** and **contextual relevance**.
