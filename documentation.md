@@ -2,13 +2,6 @@
 ## The Relevancers
 
 ### Introdcution
-Information Retrieval (IR) is a subfield of computer science concerned with searching and retrieving information relevant to a user's query. 
-It plays a role in various applications, including search engines, library catalogs, and recommender systems. The use case this project is taking into account is web search.
-
-The core challenge in IR is bridging the gap between the user's intent expressed in a query and the information stored within a document collection. 
-Among multiple other techniques query rewriting and semantic search address this challenge by reformulating or expanding the user's query to improve the retrieval process. 
-These techniques aim to capture synonyms, related concepts, and semantic relationships that users might not explicitly include in their initial query.
-
 This project is part of the Web Information Retrieval course by Prof. Dr. Philipp Schaer at TH Köln. 
 
 Within the context of the MS MARCO retrieval task, we will utilize a baseline retrieval system based on the BM25 ranking model and explore the potential for improvement through query rewriting with RM3, T5 model, and semantic search using sentence transformers.
